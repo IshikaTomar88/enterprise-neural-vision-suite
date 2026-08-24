@@ -74,7 +74,6 @@ class EnterpriseCCTVEngine:
         self.camera_source = camera_source
 
     def evaluate_live_feed(self, crowd_threshold: int, enable_heatmap: bool) -> dict:
-        # Simulate real-time analytics from a camera stream or uploaded file
         detected_objects = np.random.randint(12, 85)
         is_breach = detected_objects > crowd_threshold
         
@@ -143,7 +142,6 @@ st.markdown('<p class="main-title">🚨 Enterprise Neural Vision, CCTV & MOT Sec
 st.markdown('<p class="sub-title">Real-world camera integration, dynamic anomaly heatmaps, automated green/red alert triggers, and secure vault retention.</p>', unsafe_allow_html=True)
 st.markdown("---")
 
-# Privacy Notice Banner
 st.markdown(
     """
     <div class="secure-banner">
@@ -154,7 +152,6 @@ st.markdown(
 )
 st.markdown("<br>", unsafe_allow_html=True)
 
-# Main Application Tabs
 tab_cctv, tab_mot, tab_vault_logs = st.tabs(["📹 Live Camera & Heatmap Monitoring", "🚀 MOT Speed & Tensor Benchmarker", "📂 Memory & Vault Registry"])
 
 with tab_cctv:
@@ -179,17 +176,15 @@ with tab_cctv:
         engine = EnterpriseCCTVEngine(source_label)
         result = engine.evaluate_live_feed(crowd_limit, enable_heatmap_toggle)
 
-        # Signal Status Display
         if result["signal"] == "RED":
             st.markdown(f'<div class="alert-red">⚠️ {result["status"]} (Count: {result["active_objects_tracked"]} / Limit: {crowd_limit})</div>', unsafe_allow_html=True)
             if enable_sms_dispatch:
-                alert_entry = f"[{result['timestamp']] RED ALERT: Intrusion/Crowd threshold breached at {source_label}. Count: {result['active_objects_tracked']}."
+                alert_entry = f"[{result['timestamp']}] RED ALERT: Intrusion/Crowd threshold breached at {source_label}. Count: {result['active_objects_tracked']}."
                 st.session_state.alert_logs.append(alert_entry)
                 st.warning("📱 Automated emergency SMS & Webhook dispatch triggered successfully!")
         else:
             st.markdown(f'<div class="alert-green">✅ {result["status"]} (Count: {result["active_objects_tracked"]} / Limit: {crowd_limit})</div>', unsafe_allow_html=True)
 
-        # Heatmap Simulation Display
         if enable_heatmap_toggle:
             st.markdown("#### 🔥 Spatial Anomaly Heatmap Matrix")
             heatmap_data = np.random.rand(8, 12) * (100 if result["signal"] == "RED" else 30)
